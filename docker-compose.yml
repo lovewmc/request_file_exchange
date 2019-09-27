@@ -1,0 +1,41 @@
+# Eventually this will be replaced by mock driver implementation to not require docker for dev/tests
+# 个人开发配置
+version: '3'
+
+services:
+
+  redis:
+    restart: always
+    image: redis:latest
+    hostname: redis
+    volumes:
+      - /tmp/redis_trailer_notice:/data
+    ports:
+      - "6376:6379"
+
+  nginx:
+    restart: always
+    image: nginx:latest
+    container_name: trailer_notice_nginx
+    ports:
+      - "8026:8000"
+    volumes:
+#      - /tmp/localtime:/etc/localtime:ro
+      - "./static/:/static/:ro"   # 请确认需要的静态资源路径
+      - "./deploy/nginx/confd/:/etc/nginx/conf.d/"
+      - "/tmp/docker_storage/trailer_notice/log/:/var/log/nginx/"
+    depends_on:
+      - web
+    links:
+      - web:weblocal
+
+  web:
+    restart: always
+    image: registry.cn-hangzhou.aliyuncs.com/mengjieguo/trailer_notice:19.09.16_Alpha
+    command: circusd deploy/circus/circusd.ini
+#    command: ls
+    hostname: weblocal
+    volumes:
+      - "./:/home/docker/code/app"
+    ports:
+      - "8000"

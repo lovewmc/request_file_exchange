@@ -1,0 +1,42 @@
+# 线上
+
+version: '3'
+
+services:
+
+  redis:
+    restart: always
+    image: redis:latest
+    hostname: redis
+    volumes:
+      - /usr/redis_trailer_notice:/data
+    ports:
+      - "6376:6379"
+
+  nginx:
+    restart: always
+    image: nginx:latest
+    container_name: trailer_notice_nginx
+    ports:
+      - "8026:8000"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "./static/:/static/:ro"   # 请确认需要的静态资源路径
+      - "./deploy/nginx/confd/:/etc/nginx/conf.d/"
+      - "/etc/docker_storage/trailer_notice/log/:/var/log/nginx/"
+    depends_on:
+      - web
+    links:
+      - web:weblocal
+
+  web:
+    restart: always
+    image: registry.cn-hangzhou.aliyuncs.com/mengjieguo/trailer_notice:19.09.16_Alpha
+    command: circusd deploy/circus/circusd.ini
+    container_name: trailer_notice_web
+    hostname: weblocal
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "./:/home/docker/code/app"
+    ports:
+      - "8000"
