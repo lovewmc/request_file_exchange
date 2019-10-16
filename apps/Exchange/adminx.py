@@ -17,10 +17,10 @@ xadmin.site.register(DomainOrder, DomainOrderAdmin)
 
 class RequestHistoryOrderAdmin(object):
     list_display = (
-        'file_id', 'identity_code', 'data', 'received_time', 'create_file_time', 'read_file_time', 'return_time',
-        'status',
-        'finish_tag')
-    list_filter = ('status', 'finish_tag', 'received_time', 'create_file_time', 'read_file_time', 'return_time')
+        'unique_code', 'identity_code', 'request_data', 'response_data', 'received_time', 'create_file_time', 'read_file_time',
+        'return_time', 'write_status', 'read_status', 'finish_tag', 'request_flag')
+    list_filter = (
+    'read_status', 'write_status', 'finish_tag', 'received_time', 'create_file_time', 'read_file_time', 'return_time')
     search_fields = ('identity_code',)
 
 

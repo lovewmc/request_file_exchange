@@ -1,7 +1,5 @@
 import base64
-import hashlib
 import json
-from lib2to3.pytree import convert
 
 import rsa
 from alipay.aop.api.constant.CommonConstants import PYTHON_VERSION_3

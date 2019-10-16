@@ -3,6 +3,7 @@ import django
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "request_file_exchange.settings")
 django.setup()  # 加载django程序
+from Exchange.models import RequestHistoryOrder
 
 from comk_django_account.models import Account
 
@@ -27,5 +28,7 @@ class APITests():  # 这里应为需要用到原数据库的数据，因此，�
 
 
 if __name__ == '__main__':
-    APITests().test_Account_save()
-    # APITests().test_Account_get()
+    # APITests().test_Account_save()
+    # Account.objects.get(appid='3817407951').delete()
+    flag = RequestHistoryOrder.objects.filter(identity_code='33333')
+    print(flag)

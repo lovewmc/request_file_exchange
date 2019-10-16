@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="ding_db@140.143.128.16" uuid="8db65bc2-f597-4639-8d4f-747c1105c437">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://140.143.128.16:5431/ding_db</jdbc-url>
+    </data-source>
+  </component>
+</project>
