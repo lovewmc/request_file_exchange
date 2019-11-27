@@ -9,15 +9,38 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-'''
-个人开发配置文件
+import os
+
+from request_file_exchange import settings
 
 '''
-DEBUG = True
+线上配置文件
 
-# redis配置，同base_server
-REDIS_HOST = '127.0.0.1'
-REDIS_PORT = '6379'
+'''
+DEBUG = False
+
+# TODO 生成和写文件
+WRITE_PATH = "/home/newlight/request/"
+READ_PATH = "/home/newlight/response/"
+TARGET_PATH = os.path.join(settings.BASE_DIR,'target_file')
+
+
+# 需要配置成线上的redis
+REDIS_HOST = '192.168.1.118'
+REDIS_PORT = '6376'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ding_db',
+        'USER': 'sqlpad',
+        'PASSWORD': 'sqlpad',
+        'HOST': '140.143.128.16',
+        'PORT': '5431',
+    }
+}
+
+FILE_POSTFIX = '.httpio'
 
 IMPORT_LOG = True
 if IMPORT_LOG:

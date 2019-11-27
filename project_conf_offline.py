@@ -9,12 +9,44 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-'''
-线上配置文件
+import os
+
+from request_file_exchange import settings
 
 '''
-DEBUG = False
+个人开发配置文件
 
-# 需要配置成线上的redis
-REDIS_HOST = '192.168.1.118'
-REDIS_PORT = '6376'
+'''
+DEBUG = True
+
+WRITE_PATH = os.path.join(settings.BASE_DIR, 'Files', 'write_files1')
+READ_PATH = os.path.join(settings.BASE_DIR, 'Files', 'read_files1')
+TARGET_PATH = os.path.join(settings.BASE_DIR, 'Files', 'target_files1')
+
+# redis配置，同base_server
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = '6379'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ding_db',
+        'USER': 'sqlpad',
+        'PASSWORD': 'sqlpad',
+        'HOST': '140.143.128.16',
+        'PORT': '5431',
+    }
+}
+
+FILE_POSTFIX = '.httpio'
+
+IMPORT_LOG = True
+if IMPORT_LOG:
+    from request_file_exchange.set_conf.logging_setting import LOGGING
+    import comk_django_plugin
+
+    allow_ip_list = ['192.168.1.117']
+    comk_django_plugin.set_allow_ip_list(allow_ip_list)
+    comk_django_plugin.set_comk_auth_code('123')
+    LOGGING = comk_django_plugin.auto_update_logsetting(LOGGING)
+

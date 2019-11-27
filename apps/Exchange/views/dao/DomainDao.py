@@ -10,5 +10,3 @@ def get_domain_obj(domain_name):
     domain_objs = DomainOrder.objects.filter(domain_name=domain_name)
     if domain_objs:
         return domain_objs[0]
-    else:
-        return domain_objs
