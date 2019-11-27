@@ -49,7 +49,7 @@ def read_target_file(file_route):
     read_target_file_log(log_info)
 
 
-@shared_task(name='send_request', bind=True, max_retries=10, retry_backoff=5, retry_jitter=False,
+@shared_task(name='send_request', bind=True, max_retries=10, retry_backoff=60, retry_jitter=False,
              autoretry_for=(Exception, JSONDecodeError, ConnectionError), )
 def send_request(self, file_data, unique_code, new_file_route):
     """

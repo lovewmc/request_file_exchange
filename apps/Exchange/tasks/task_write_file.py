@@ -10,7 +10,7 @@ from Exchange.views.service.RecordLog import write_file_log
 from request_file_exchange import settings
 
 
-@shared_task(name='write_file', bind=True, max_retries=10, retry_backoff=5, retry_jitter=False,
+@shared_task(name='write_file', bind=True, max_retries=10, retry_backoff=60, retry_jitter=False,
              autoretry_for=(Exception, JSONDecodeError, ConnectionError), )
 def write_file(self, content, unique_code, write_flag=True):
     file_name = str(unique_code) + '.httpio'
