@@ -12,7 +12,7 @@ comk-django-plugin==1.4.1
 comk-utils==1.0.6
 defusedxml==0.5.0
 diff-match-patch==20181111
-Django==1.11.20
+Django==1.11.23
 django-celery-results==1.1.0
 django-crispy-forms==1.7.2
 django-formtools==2.1
